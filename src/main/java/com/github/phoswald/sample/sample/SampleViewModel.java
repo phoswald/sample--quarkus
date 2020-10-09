@@ -10,6 +10,4 @@ public class SampleViewModel {
     public String now = ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
     public Map<String, String> env = new TreeMap<>(System.getenv());
     public Map<Object, Object> props = new TreeMap<>(System.getProperties());
-
-    public String greeting = "Hello, World!";
 }

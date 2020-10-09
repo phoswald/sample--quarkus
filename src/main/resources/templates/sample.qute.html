@@ -1,6 +1,6 @@
 {@com.github.phoswald.sample.sample.SampleViewModel model}
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +24,7 @@
     <div class="container">
       <h2 class="my-4">Greeting</h2>
       <div class="alert alert-success">
-        {model.greeting}
+        {msg:greeting}
       </div>
       <h2 class="my-4">Time</h2>
       <p>The current time is {model.now}.</p>
