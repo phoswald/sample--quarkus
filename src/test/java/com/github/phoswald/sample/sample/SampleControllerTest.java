@@ -13,7 +13,7 @@ public class SampleControllerTest {
     @Test
     public void testEndpoint() {
         given()
-                .when().get("/rest/pages/sample")
+                .when().get("/app/pages/sample")
                 .then()
                 .statusCode(200)
                 .body(containsString("Hello, World!"), containsString("<td>java.home</td>"));

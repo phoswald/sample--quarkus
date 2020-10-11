@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 
 @RequestScoped
 @Transactional
-@Path("/tasks")
+@Path("/rest/tasks")
 public class TaskResource {
 
     @Inject

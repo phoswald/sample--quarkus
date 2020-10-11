@@ -23,8 +23,8 @@ import javax.ws.rs.core.Response;
 import io.quarkus.qute.Template;
 
 @RequestScoped
-@Path("/pages/tasks")
 @Transactional
+@Path("/pages/tasks")
 public class TaskController {
 
     @Inject

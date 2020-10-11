@@ -26,8 +26,18 @@
       <div class="alert alert-success">
         {msg:greeting}
       </div>
-      <h2 class="my-4">Time</h2>
+      <h2 class="my-4">Config</h2>
       <p>The current time is {model.now}.</p>
+      <table class="table table-sm">
+        <tr>
+          <th>Parameter</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>app.sample.config</td>
+          <td>{model.sampleConfig}</td>
+        </tr>
+      </table>
       <h2 class="my-4">Environment Variables</h2>
       <table class="table table-sm">
         <tr>
