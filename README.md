@@ -15,26 +15,53 @@ $ export APP_SAMPLE_CONFIG=ValueFromShell
 $ java \
   -Dquarkus.http.port=8080 \
   -Dquarkus.datasource.jdbc.url=jdbc:h2:./databases/task-db \
+  -jar target/quarkus-app/quarkus-run.jar
+~~~
+
+~~~
+$ mvn compile quarkus:dev \
+  -Dquarkus.datasource.jdbc.url=jdbc:h2:tcp://localhost/./task-db
+~~~
+
+## Run Über-Jar
+
+~~~
+$ mvn clean verify -Dquarkus.package.type=uber-jar
+$ java \
+  -Dquarkus.http.port=8080 \
+  -Dquarkus.datasource.jdbc.url=jdbc:h2:./databases/task-db \
   -jar target/sample-quarkus-0.1.0-SNAPSHOT-runner.jar
 ~~~
 
 ## Run Natively
 
 ~~~
-$ mvn clean verify -P native
-$ export APP_SAMPLE_CONFIG=ValueFromShell
+$ mvn clean verify -Pnative -Dquarkus.native.container-build=true \
+  -Dquarkus.datasource.jdbc.url=jdbc:h2:tcp://localhost/./task-db
 $ target/sample-quarkus-0.1.0-SNAPSHOT-runner
 ~~~
 
+Start H2 Server:
+
 ~~~
-$ ldd target/sample-quarkus-0.1.0-SNAPSHOT-runner 
-    linux-vdso.so.1 (0x00007fff35581000)
-    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fe19a7e0000)
-    libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fe19a7da000)
-    libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007fe19a7be000)
-    librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fe19a7b3000)
-    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe19a5c1000)
-    /lib64/ld-linux-x86-64.so.2 (0x00007fe19a81d000)
+$ cd ~/code/databases
+$ java -cp ~/.m2/repository/com/h2database/h2/1.4.197/h2-1.4.197.jar org.h2.tools.Server
+~~~
+
+Verify native executable dependencies:
+
+~~~
+$ ldd target/sample-quarkus-0.1.0-SNAPSHOT-runner
+	linux-vdso.so.1 (0x00007ffcf05f6000)
+	libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fd631a6a000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fd631a47000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fd631a41000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007fd631a25000)
+	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fd631a1a000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fd631828000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fd6316d7000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fd631c63000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fd6316bc000)
 ~~~
 
 ## URLs
@@ -64,4 +91,3 @@ $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf2
 ## TODO
 
 - Docker genauer anschauen
-- Native Image genauer anschauen, funktioniert nicht im Embedded Modus von H2

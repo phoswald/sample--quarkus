@@ -16,6 +16,6 @@ public class SampleControllerTest {
                 .when().get("/app/pages/sample")
                 .then()
                 .statusCode(200)
-                .body(containsString("Hello, World!"), containsString("<td>java.home</td>"));
+                .body(containsString("Hello, World!"), containsString("<td>user.home</td>"));
     }
 }
