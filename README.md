@@ -45,7 +45,7 @@ Start H2 Server:
 
 ~~~
 $ cd ~/code/databases
-$ java -cp ~/.m2/repository/com/h2database/h2/1.4.197/h2-1.4.197.jar org.h2.tools.Server
+$ java -cp ~/.m2/repository/com/h2database/h2/2.0.202/h2-2.0.202.jar org.h2.tools.Server
 ~~~
 
 Verify native executable dependencies:
