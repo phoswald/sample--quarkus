@@ -41,12 +41,7 @@ $ mvn clean verify -Pnative -Dquarkus.native.container-build=true \
 $ target/sample-quarkus-0.1.0-SNAPSHOT-runner
 ~~~
 
-Start H2 Server:
-
-~~~
-$ cd ~/code/databases
-$ java -cp ~/.m2/repository/com/h2database/h2/1.4.197/h2-1.4.197.jar org.h2.tools.Server
-~~~
+Note: JVM System Properties can be passed as normal command line arguments (using `-D...=...` syntax).
 
 Verify native executable dependencies:
 
@@ -62,6 +57,28 @@ $ ldd target/sample-quarkus-0.1.0-SNAPSHOT-runner
 	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fd6316d7000)
 	/lib64/ld-linux-x86-64.so.2 (0x00007fd631c63000)
 	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fd6316bc000)
+~~~
+
+## Run in Docker
+
+~~~
+$ docker build -f src/main/docker/Dockerfile -t sample-quarkus .
+$ docker run -it --rm --name my-quarkus -p 8080:8080 sample-quarkus \
+  /usr/local/application/sample-quarkus \
+  -Dquarkus.http.host=0.0.0.0 \
+  -Dquarkus.datasource.jdbc.url=jdbc:h2:tcp://192.168.1.118/./task-db
+~~~
+
+Note: JVM System Properties can be passed as normal command line arguments (using `-D...=...` syntax).
+
+## Run H2 Server:
+
+Running H2 in server mode is required when using Quarkus' native mode
+(because H2's embedded mode is not supported in native mode).
+
+~~~
+$ cd ~/code/databases
+$ java -cp ~/.m2/repository/com/h2database/h2/1.4.197/h2-1.4.197.jar org.h2.tools.Server -tcpAllowOthers
 ~~~
 
 ## URLs
@@ -87,7 +104,3 @@ $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf2
   -d '{"title":"Some updated task","description":"This is still CURL","done":false}'
 $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -i -X DELETE
 ~~~
-
-## TODO
-
-- Docker genauer anschauen
