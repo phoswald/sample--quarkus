@@ -20,7 +20,7 @@ $ java \
 
 ~~~
 $ mvn compile quarkus:dev \
-  -Dquarkus.datasource.jdbc.url=jdbc:h2:tcp://localhost/./task-db
+  -Dquarkus.datasource.jdbc.url=jdbc:h2:./databases/task-db
 ~~~
 
 ## Run Über-Jar
@@ -78,7 +78,7 @@ Running H2 in server mode is required when using Quarkus' native mode
 
 ~~~
 $ cd ~/code/databases
-$ java -cp ~/.m2/repository/com/h2database/h2/1.4.197/h2-1.4.197.jar org.h2.tools.Server -tcpAllowOthers
+$ java -cp ~/.m2/repository/com/h2database/h2/2.1.210/h2-2.1.210.jar org.h2.tools.Server -tcpAllowOthers
 ~~~
 
 ## URLs
