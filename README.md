@@ -5,39 +5,47 @@ Experiments with Quarkus, featuring:
 - Static web content
 - Dynamic web content using JAX-RS and Qute
 - REST endpoints using JAX-RS 
-- H2 database using JPA and Hibernate
+- PostgreSQL database using JPA and Hibernate
 
-## Run Standalone
+## Build and Run Standalone
 
 ~~~
 $ mvn clean verify
 $ export APP_SAMPLE_CONFIG=ValueFromShell
 $ java \
-  -Dquarkus.http.port=8080 \
-  -Dquarkus.datasource.jdbc.url=jdbc:h2:./databases/task-db \
+  -Dquarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydb \
+  -Dquarkus.datasource.username=myuser \
+  -Dquarkus.datasource.password=mypassword \
   -jar target/quarkus-app/quarkus-run.jar
 ~~~
 
-~~~
-$ mvn compile quarkus:dev \
-  -Dquarkus.datasource.jdbc.url=jdbc:h2:./databases/task-db
-~~~
-
-## Run Über-Jar
+### Dev Mode
 
 ~~~
-$ mvn clean verify -Dquarkus.package.type=uber-jar
-$ java \
-  -Dquarkus.http.port=8080 \
-  -Dquarkus.datasource.jdbc.url=jdbc:h2:./databases/task-db \
-  -jar target/sample-quarkus-0.1.0-SNAPSHOT-runner.jar
+$ mvn quarkus:dev
 ~~~
 
-## Run Natively
+## Build and Run in Docker
+
+~~~
+$ mvn clean verify
+$ docker build -f src/main/docker/Dockerfile -t sample-quarkus .
+$ docker run -it --rm --name sample-quarkus \
+  -p 8080:8080 \
+  -e quarkus_datasource_jdbc_url=jdbc:postgresql://192.168.1.118:5432/mydb \
+  -e quarkus_datasource_username=myuser \
+  -e quarkus_datasource_password=mypassword \
+  -e APP_SAMPLE_CONFIG=ValueFromDocker \
+  sample-quarkus
+~~~
+
+Note: JVM System Properties can be passed as normal command line arguments (using `-D...=...` syntax).
+
+## Build and Run Natively
 
 ~~~
 $ mvn clean verify -Pnative -Dquarkus.native.container-build=true \
-  -Dquarkus.datasource.jdbc.url=jdbc:h2:tcp://localhost/./task-db
+  -Dquarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydb
 $ target/sample-quarkus-0.1.0-SNAPSHOT-runner
 ~~~
 
@@ -57,28 +65,6 @@ $ ldd target/sample-quarkus-0.1.0-SNAPSHOT-runner
 	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fd6316d7000)
 	/lib64/ld-linux-x86-64.so.2 (0x00007fd631c63000)
 	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fd6316bc000)
-~~~
-
-## Run in Docker
-
-~~~
-$ docker build -f src/main/docker/Dockerfile -t sample-quarkus .
-$ docker run -it --rm --name my-quarkus -p 8080:8080 sample-quarkus \
-  /usr/local/application/sample-quarkus \
-  -Dquarkus.http.host=0.0.0.0 \
-  -Dquarkus.datasource.jdbc.url=jdbc:h2:tcp://192.168.1.118/./task-db
-~~~
-
-Note: JVM System Properties can be passed as normal command line arguments (using `-D...=...` syntax).
-
-## Run H2 Server:
-
-Running H2 in server mode is required when using Quarkus' native mode
-(because H2's embedded mode is not supported in native mode).
-
-~~~
-$ cd ~/code/databases
-$ java -cp ~/.m2/repository/com/h2database/h2/2.1.210/h2-2.1.210.jar org.h2.tools.Server -tcpAllowOthers
 ~~~
 
 ## URLs

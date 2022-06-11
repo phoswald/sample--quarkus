@@ -1,12 +1,9 @@
-FROM ubuntu:latest
+FROM eclipse-temurin:17-jre-alpine
+
+COPY --chown=daemon:daemon target/quarkus-app /usr/local/application
+
+USER daemon:daemon
+EXPOSE 8080
 
 WORKDIR /usr/local/application
-
-RUN chown 1:1 /usr/local/application \
- && chmod 755 /usr/local/application
-COPY --chown=1:1 target/*-runner /usr/local/application/sample-quarkus
-
-EXPOSE 8080
-USER 1:1
-
-# CMD ["/usr/local/application/sample-quarkus", "-Dquarkus.http.host=0.0.0.0"]
+CMD ["java", "-jar", "quarkus-run.jar"]

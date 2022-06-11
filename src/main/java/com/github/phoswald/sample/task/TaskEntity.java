@@ -39,7 +39,7 @@ public class TaskEntity {
     private String description;
 
     @Column(name = "DONE")
-    private boolean done;
+    private Boolean done;
 
     public String getTaskId() {
         return taskId;
@@ -82,10 +82,10 @@ public class TaskEntity {
     }
 
     public boolean isDone() {
-        return done;
+        return done == null ? false : done.booleanValue();
     }
 
     public void setDone(boolean done) {
-        this.done = done;
+        this.done = Boolean.valueOf(done);
     }
 }
