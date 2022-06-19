@@ -22,7 +22,11 @@ $ java \
 ### Dev Mode
 
 ~~~
-$ mvn quarkus:dev
+$ mvn quarkus:dev \
+  -Dquarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydb \
+  -Dquarkus.datasource.username=myuser \
+  -Dquarkus.datasource.password=mypassword \
+  -Dquarkus.hibernate-orm.database.generation=update
 ~~~
 
 ## Build and Run in Docker
@@ -90,3 +94,21 @@ $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf2
   -d '{"title":"Some updated task","description":"This is still CURL","done":false}'
 $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf26' -i -X DELETE
 ~~~
+
+## Quarkus Security
+
+~~~
+CREATE TABLE "user" (
+  username character varying(255) NOT NULL,
+  bcrypt_password character varying(255) NULL,
+  roles character varying(255) NULL
+);
+
+ALTER TABLE "user" ADD CONSTRAINT user_pkey PRIMARY KEY (username);
+~~~
+
+~~~
+$ java -cp 'target/quarkus-app/lib/boot/*:target/quarkus-app/lib/main/*:target/classes' \
+  com.github.phoswald.sample.security.PasswordUtility
+~~~
+

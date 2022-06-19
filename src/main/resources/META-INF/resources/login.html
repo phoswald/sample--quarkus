@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Quarkus Sample Service</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href=".">Home</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container" style="max-width: 640px">
+      <h1 class="my-4">Login</h1>
+      <form action="j_security_check" method="post">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" name="j_username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" name="j_password">
+        </div>
+        <p>
+          <button type="submit" class="btn btn-primary">Login</button> 
+        </p>
+      </form>
+    </div>
+  </body>
+</html>
