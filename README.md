@@ -36,7 +36,7 @@ $ mvn clean verify
 $ docker build -f src/main/docker/Dockerfile -t sample-quarkus .
 $ docker run -it --rm --name sample-quarkus \
   -p 8080:8080 \
-  -e quarkus_datasource_jdbc_url=jdbc:postgresql://192.168.1.118:5432/mydb \
+  -e quarkus_datasource_jdbc_url=jdbc:postgresql://192.168.0.10:5432/mydb \
   -e quarkus_datasource_username=myuser \
   -e quarkus_datasource_password=mypassword \
   -e APP_SAMPLE_CONFIG=ValueFromDocker \
