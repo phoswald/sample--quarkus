@@ -48,9 +48,11 @@ Note: JVM System Properties can be passed as normal command line arguments (usin
 ## Build and Run Natively
 
 ~~~
-$ mvn clean verify -Pnative -Dquarkus.native.container-build=true \
-  -Dquarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydb
-$ target/sample-quarkus-0.1.0-SNAPSHOT-runner
+$ mvn clean verify -P native
+$ target/sample-quarkus-0.1.0-SNAPSHOT-runner \
+  -Dquarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/mydb \
+  -Dquarkus.datasource.username=myuser \
+  -Dquarkus.datasource.password=mypassword
 ~~~
 
 Note: JVM System Properties can be passed as normal command line arguments (using `-D...=...` syntax).
@@ -59,16 +61,13 @@ Verify native executable dependencies:
 
 ~~~
 $ ldd target/sample-quarkus-0.1.0-SNAPSHOT-runner
-	linux-vdso.so.1 (0x00007ffcf05f6000)
-	libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fd631a6a000)
-	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007fd631a47000)
-	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007fd631a41000)
-	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007fd631a25000)
-	librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007fd631a1a000)
-	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fd631828000)
-	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fd6316d7000)
-	/lib64/ld-linux-x86-64.so.2 (0x00007fd631c63000)
-	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fd6316bc000)
+    linux-vdso.so.1 (0x00007ffdbb115000)
+    libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f2618ae6000)
+    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f2618ae1000)
+    libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f2618adc000)
+    librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f2618ad7000)
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f26188af000)
+    /lib64/ld-linux-x86-64.so.2 (0x00007f2618b18000)
 ~~~
 
 ## URLs
