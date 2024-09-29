@@ -1,29 +1,30 @@
 package com.github.phoswald.sample.security;
 
-import io.quarkus.security.jpa.Password;
-import io.quarkus.security.jpa.Roles;
-import io.quarkus.security.jpa.UserDefinition;
-import io.quarkus.security.jpa.Username;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import io.quarkus.security.jpa.Password;
+import io.quarkus.security.jpa.Roles;
+import io.quarkus.security.jpa.UserDefinition;
+import io.quarkus.security.jpa.Username;
+
 @Entity
-@Table(name = "user")
+@Table(name = "user_")
 @UserDefinition
 public class UserEntity {
 
 	@Id
-    @Column(name = "username")
+    @Column(name = "username_")
     @Username
     public String username;
 
-    @Column(name = "bcrypt_password")
+    @Column(name = "password_")
     @Password
     public String password;
 
-    @Column(name = "roles")
+    @Column(name = "roles_")
     @Roles
     public String roles;
 
