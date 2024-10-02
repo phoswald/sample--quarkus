@@ -14,7 +14,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "task")
+@Table(name = "task_")
 @NamedQueries({ //
         @NamedQuery(name = TaskEntity.SELECT_ALL, query = "select t from TaskEntity t order by t.timestamp desc") })
 public class TaskEntity {
@@ -22,23 +22,23 @@ public class TaskEntity {
     static final String SELECT_ALL = "TaskEntity.Select";
 
     @Id
-    @Column(name = "task_id")
+    @Column(name = "task_id_")
     private String taskId;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id_")
     private String userId;
 
-    @Column(name = "timestamp")
+    @Column(name = "timestamp_")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
-    @Column(name = "title")
+    @Column(name = "title_")
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description_")
     private String description;
 
-    @Column(name = "done")
+    @Column(name = "done_")
     private Boolean done;
 
     public String getTaskId() {

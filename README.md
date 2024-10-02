@@ -5,7 +5,7 @@ Experiments with Quarkus, featuring:
 - Static web content
 - Dynamic web content using JAX-RS and Qute
 - REST endpoints using JAX-RS 
-- PostgreSQL database using JPA and Hibernate
+- Postgres database using JPA and Hibernate
 
 ## Build and Run Standalone
 
@@ -36,7 +36,7 @@ $ mvn clean verify
 $ docker build -f src/main/docker/Dockerfile -t sample-quarkus .
 $ docker run -it --rm --name sample-quarkus \
   -p 8080:8080 \
-  -e quarkus_datasource_jdbc_url=jdbc:postgresql://192.168.0.10:5432/mydb \
+  -e quarkus_datasource_jdbc_url=jdbc:postgresql://surin.home:5432/mydb \
   -e quarkus_datasource_username=myuser \
   -e quarkus_datasource_password=mypassword \
   -e APP_SAMPLE_CONFIG=ValueFromDocker \
@@ -96,15 +96,9 @@ $ curl 'http://localhost:8080/app/rest/tasks/5b89f266-c566-4d1f-8545-451bc443cf2
 
 ## Security
 
-~~~
-CREATE TABLE user_ (
-  username_ character varying(255) NOT NULL,
-  password_ character varying(255) NULL,
-  roles_    character varying(255) NULL
-);
+See [SQL DDL](src/main/resources/schema.postgresql.sql) for Postgres.
 
-ALTER TABLE user_ ADD CONSTRAINT user_pk_ PRIMARY KEY (username_);
-~~~
+Create passwords for form-based authentication (table `user_`):
 
 ~~~
 $ java -cp 'target/quarkus-app/lib/boot/*:target/quarkus-app/lib/main/*:target/classes' \

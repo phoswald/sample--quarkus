@@ -11,17 +11,16 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @RequestScoped
-@Path("/rest/secured")
-public class SecuredResource {
+@Path("/rest/sample/me")
+public class UserResource {
 
 	@Inject
 	Principal principal;
 
     @GET
-    @Path("/me")
     @RolesAllowed("user")
     @Produces(MediaType.TEXT_PLAIN)
     public String me() {
-        return (principal == null ? "<unknown" : principal.getName()) + "\n";
+        return principal.getName() + "\n";
     }
 }

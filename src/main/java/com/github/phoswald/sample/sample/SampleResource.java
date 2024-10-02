@@ -3,8 +3,6 @@ package com.github.phoswald.sample.sample;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -14,6 +12,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @RequestScoped
 @Path("/rest/sample")
@@ -28,14 +28,14 @@ public class SampleResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response getTime() {
         String now = ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
-        return Response.ok(now).build();
+        return Response.ok(now + "\n").build();
     }
 
     @GET
     @Path("/config")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getConfig() {
-        return Response.ok(sampleConfig).build();
+        return Response.ok(sampleConfig + "\n").build();
     }
 
     @POST

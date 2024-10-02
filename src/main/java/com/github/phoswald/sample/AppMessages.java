@@ -6,6 +6,6 @@ import io.quarkus.qute.i18n.MessageBundle;
 @MessageBundle
 public interface AppMessages {
 
-    @Message("Hello, World!")
+    @Message("Hello")
     String greeting();
 }
