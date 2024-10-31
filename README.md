@@ -39,7 +39,7 @@ $ docker run -it --rm --name sample-quarkus \
   -e QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://surin.home:5432/mydb \
   -e QUARKUS_DATASOURCE_USERNAME=myuser \
   -e QUARKUS_DATASOURCE_PASSWORD=mypassword \
-  -e APP_SAMPLE_CONFIG=ValueFromDocker \
+  -e APP_SAMPLE_CONFIG=ValueFromDockerRun \
   sample-quarkus:0.1.0-SNAPSHOT
 ~~~
 
